@@ -14,7 +14,7 @@
 #define MAX2(x, y) ((x) > (y) ? (x) : (y))
 #define MAX3(x, y, z) MAX2(MAX2((x), (y)), (z))
 
-static char *basename(char *string)
+static char *_basename(char *string)
 {
   char *lfslash, *lbslash;
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     exit(1);
   }
 
-  argv[1] = basename(argv[1]);
+  argv[1] = _basename(argv[1]);
 
   fseek(fpin, 0L, SEEK_END);
   size = ftell(fpin);
