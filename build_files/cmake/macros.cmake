@@ -910,6 +910,13 @@ function(delayed_do_install
   endif()
 endfunction()
 
+if(NOT DATATOC_EXECUTABLE)
+  set(DATATOC_EXECUTABLE "$<TARGET_FILE:datatoc>")
+endif()
+
+if(NOT DATATOC_ICON_EXECUTABLE)
+  set(DATATOC_ICON_EXECUTABLE "$<TARGET_FILE:datatoc_icon>")
+endif()
 
 function(data_to_c
   file_from file_to
@@ -924,7 +931,7 @@ function(data_to_c
   add_custom_command(
     OUTPUT ${file_to}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${_file_to_path}
-    COMMAND "$<TARGET_FILE:datatoc>" ${file_from} ${file_to}
+    COMMAND ${DATATOC_EXECUTABLE} ${file_from} ${file_to}
     DEPENDS ${file_from} datatoc)
 
   set_source_files_properties(${file_to} PROPERTIES GENERATED TRUE)
@@ -951,7 +958,7 @@ function(data_to_c_simple
   add_custom_command(
     OUTPUT  ${_file_to}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${_file_to_path}
-    COMMAND "$<TARGET_FILE:datatoc>" ${_file_from} ${_file_to}
+    COMMAND ${DATATOC_EXECUTABLE} ${_file_from} ${_file_to}
     DEPENDS ${_file_from} datatoc)
 
   set_source_files_properties(${_file_to} PROPERTIES GENERATED TRUE)
@@ -987,8 +994,8 @@ function(data_to_c_simple_icons
     OUTPUT  ${_file_from} ${_file_to}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${_file_to_path}
     # COMMAND python3 ${CMAKE_SOURCE_DIR}/source/blender/datatoc/datatoc_icon.py ${_path_from_abs} ${_file_from}
-    COMMAND "$<TARGET_FILE:datatoc_icon>" ${_path_from_abs} ${_file_from}
-    COMMAND "$<TARGET_FILE:datatoc>" ${_file_from} ${_file_to}
+    COMMAND ${DATATOC_ICON_EXECUTABLE} ${_path_from_abs} ${_file_from}
+    COMMAND ${DATATOC_EXECUTABLE} ${_file_from} ${_file_to}
     DEPENDS
       ${_icon_files}
       datatoc_icon
@@ -1038,6 +1045,10 @@ function(svg_to_png
   endif()
 endfunction()
 
+if(NOT MSGFMT_EXECUTABLE)
+  set(MSGFMT_EXECUTABLE "$<TARGET_FILE:msgfmt>")
+endif()
+
 function(msgfmt_simple
   file_from
   list_to_add
@@ -1057,7 +1068,7 @@ function(msgfmt_simple
   add_custom_command(
     OUTPUT  ${_file_to}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${_file_to_path}
-    COMMAND "$<TARGET_FILE:msgfmt>" ${_file_from} ${_file_to}
+    COMMAND ${MSGFMT_EXECUTABLE} ${_file_from} ${_file_to}
     DEPENDS msgfmt ${_file_from})
 
   set_source_files_properties(${_file_to} PROPERTIES GENERATED TRUE)

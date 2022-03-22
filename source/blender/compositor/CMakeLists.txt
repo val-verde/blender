@@ -609,10 +609,15 @@ add_definitions(-DCL_USE_DEPRECATED_OPENCL_1_1_APIS)
 
 set(GENSRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/operations)
 set(GENSRC ${GENSRC_DIR}/COM_SMAAAreaTexture.h)
+
+if(NOT SMAA_AREATEX_EXECUTABLE)
+  set(SMAA_AREATEX_EXECUTABLE "$<TARGET_FILE:smaa_areatex>")
+endif()
+
 add_custom_command(
   OUTPUT ${GENSRC}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${GENSRC_DIR}
-  COMMAND "$<TARGET_FILE:smaa_areatex>" ${GENSRC}
+  COMMAND ${SMAA_AREATEX_EXECUTABLE} ${GENSRC}
   DEPENDS smaa_areatex
 )
 add_custom_target(smaa_areatex_header

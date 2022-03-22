@@ -57,6 +57,10 @@ if(WIN32 AND NOT UNIX)
   target_link_libraries(makesdna ${PTHREADS_LIBRARIES})
 endif()
 
+if(NOT MAKESDNA_EXECUTABLE)
+  set(MAKESDNA_EXECUTABLE "$<TARGET_FILE:makesdna>")
+endif()
+
 # Output dna.c
 add_custom_command(
   OUTPUT
@@ -64,7 +68,7 @@ add_custom_command(
     ${CMAKE_CURRENT_BINARY_DIR}/dna_type_offsets.h
     ${CMAKE_CURRENT_BINARY_DIR}/dna_verify.c
   COMMAND
-    "$<TARGET_FILE:makesdna>"
+    ${MAKESDNA_EXECUTABLE}
     ${CMAKE_CURRENT_BINARY_DIR}/dna.c
     ${CMAKE_CURRENT_BINARY_DIR}/dna_type_offsets.h
     ${CMAKE_CURRENT_BINARY_DIR}/dna_verify.c

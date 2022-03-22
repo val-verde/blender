@@ -405,11 +405,15 @@ if(WIN32 AND NOT UNIX)
   target_link_libraries(makesrna ${PTHREADS_LIBRARIES})
 endif()
 
+if(NOT MAKESRNA_EXECUTABLE)
+  set(MAKESRNA_EXECUTABLE "$<TARGET_FILE:makesrna>")
+endif()
+
 # Output rna_*_gen.c
 # note (linux only): with crashes try add this after COMMAND: valgrind --leak-check=full --track-origins=yes
 add_custom_command(
   OUTPUT ${GENSRC}
-  COMMAND "$<TARGET_FILE:makesrna>" ${CMAKE_CURRENT_BINARY_DIR}/  ${CMAKE_CURRENT_BINARY_DIR}/../
+  COMMAND ${MAKESRNA_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/  ${CMAKE_CURRENT_BINARY_DIR}/../
   DEPENDS makesrna
 )
 
