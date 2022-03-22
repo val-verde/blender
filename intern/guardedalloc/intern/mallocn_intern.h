@@ -17,8 +17,8 @@
 #undef HAVE_MALLOC_STATS
 #define USE_MALLOC_USABLE_SIZE /* internal, when we have malloc_usable_size() */
 
-#if defined(__linux__) || (defined(__FreeBSD_kernel__) && !defined(__FreeBSD__)) || \
-    defined(__GLIBC__)
+#if (defined(__FreeBSD_kernel__) && !defined(__FreeBSD__)) || \
+    (defined(__linux__) && defined(__GLIBC__))
 #  include <malloc.h>
 #  define HAVE_MALLOC_STATS
 #elif defined(__FreeBSD__)
