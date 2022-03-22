@@ -38,17 +38,9 @@ if(WITH_LIBMV)
     ${EIGEN3_INCLUDE_DIRS}
     ${PNG_INCLUDE_DIRS}
     ${ZLIB_INCLUDE_DIRS}
-    ../../extern/ceres/include
-    ../../extern/ceres/config
   )
 
-  list(APPEND LIB
-    extern_ceres
-
-    ${GLOG_LIBRARIES}
-    ${GFLAGS_LIBRARIES}
-    ${PNG_LIBRARIES}
-  )
+  find_library(extern_ceres ceres)
 
   add_definitions(
     -DWITH_LIBMV_GUARDED_ALLOC

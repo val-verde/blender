@@ -39,6 +39,8 @@ endif()
 if(WITH_LIBMV)
   blender_include_dirs(../../intern/libmv)
   add_definitions(-DWITH_LIBMV)
+  find_library(extern_ceres ceres)
+  list(INSERT LIB 0 ${extern_ceres})
 endif()
 
 if(WITH_CYCLES)
