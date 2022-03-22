@@ -21,7 +21,9 @@
 
 #  include "BLI_winstuff.h"
 #else
-#  include <execinfo.h>
+#  if __has_include(<execinfo.h>)
+#    include <execinfo.h>
+#  endif
 #  include <unistd.h>
 #endif
 
@@ -63,7 +65,7 @@ void BLI_system_backtrace(FILE *fp)
 {
   /* ------------- */
   /* Linux / Apple */
-#  if defined(__linux__) || defined(__APPLE__)
+#  if __has_include(<execinfo.h>) && (defined(__linux__) || defined(__APPLE__))
 
 #    define SIZE 100
   void *buffer[SIZE];
