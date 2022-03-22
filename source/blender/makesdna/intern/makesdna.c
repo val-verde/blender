@@ -868,6 +868,13 @@ static int calculate_struct_sizes(int firststruct, FILE *file_verify, const char
   fprintf(file_verify, "#undef assert_line_\n");
   fprintf(file_verify, "\n");
 
+  const char *pointer_size_override = getenv("MAKESDNA_POINTER_SIZE");
+  size_t sizeof_void_pointer = sizeof(void *);
+
+  if (pointer_size_override) {
+    sizeof_void_pointer = atoi(pointer_size_override);
+  }
+
   /* Multiple iterations to handle nested structs. */
   int unknown = structs_len;
   while (unknown) {
@@ -934,7 +941,7 @@ static int calculate_struct_sizes(int firststruct, FILE *file_verify, const char
             }
 
             /* 4-8 aligned/ */
-            if (sizeof(void *) == 4) {
+            if (sizeof_void_pointer == 4) {
               if (size_native % 4) {
                 fprintf(stderr,
                         "Align pointer error in struct (size_native 4): %s %s\n",
@@ -961,7 +968,7 @@ static int calculate_struct_sizes(int firststruct, FILE *file_verify, const char
               dna_error = 1;
             }
 
-            size_native += sizeof(void *) * mul;
+            size_native += sizeof_void_pointer * mul;
             size_32 += 4 * mul;
             size_64 += 8 * mul;
             max_align_32 = MAX2(max_align_32, 4);
@@ -994,7 +1001,7 @@ static int calculate_struct_sizes(int firststruct, FILE *file_verify, const char
 
             /* struct alignment */
             if (type >= firststruct) {
-              if (sizeof(void *) == 8 && (size_native % 8)) {
+              if (sizeof_void_pointer == 8 && (size_native % 8)) {
                 fprintf(stderr, "Align struct error: %s %s\n", types[structtype], cp);
                 dna_error = 1;
               }
