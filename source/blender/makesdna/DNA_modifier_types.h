@@ -101,6 +101,7 @@ typedef enum ModifierMode {
   eModifierMode_DisableTemporary = (1u << 31),
 } ModifierMode;
 
+#pragma pack(push, 1)
 typedef struct ModifierData {
   struct ModifierData *next, *prev;
 
@@ -120,6 +121,7 @@ typedef struct ModifierData {
   /** Runtime field which contains runtime data which is specific to a modifier type. */
   void *runtime;
 } ModifierData;
+#pragma pack(pop)
 
 typedef enum {
   /** This modifier has been inserted in local override, and hence can be fully edited. */
