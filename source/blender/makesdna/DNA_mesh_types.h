@@ -63,6 +63,7 @@ struct MLoopTri_Store {
 };
 
 /** Runtime data, not saved in files. */
+#pragma pack(push, 1)
 typedef struct Mesh_Runtime {
   DNA_DEFINE_CXX_METHODS(Mesh_Runtime)
 
@@ -147,6 +148,7 @@ typedef struct Mesh_Runtime {
    */
   uint32_t *subsurf_face_dot_tags;
 } Mesh_Runtime;
+#pragma pack(pop)
 
 typedef struct Mesh {
   DNA_DEFINE_CXX_METHODS(Mesh)
