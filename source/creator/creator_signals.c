@@ -258,7 +258,7 @@ void main_signal_setup_fpe(void)
    * set breakpoints on sig_handle_fpe */
   signal(SIGFPE, sig_handle_fpe);
 
-#    if defined(__linux__) && defined(__GNUC__)
+#    if defined(__linux__) && defined(__GNUC__) && defined(__GLIBC__)
   feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 #    endif /* defined(__linux__) && defined(__GNUC__) */
 #    if defined(OSX_SSE_FPE)
