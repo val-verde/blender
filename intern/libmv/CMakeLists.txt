@@ -17,7 +17,7 @@ set(SRC
 )
 
 set(LIB
-
+  glog
 )
 
 if(WITH_LIBMV)
