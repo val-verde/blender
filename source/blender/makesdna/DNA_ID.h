@@ -44,6 +44,7 @@ typedef struct DrawDataList {
   struct DrawData *first, *last;
 } DrawDataList;
 
+#pragma pack(push, 1)
 typedef struct IDPropertyUIData {
   /** Tooltip / property description pointer. Owned by the IDProperty. */
   char *description;
@@ -52,8 +53,10 @@ typedef struct IDPropertyUIData {
 
   char _pad[4];
 } IDPropertyUIData;
+#pragma pack(pop)
 
 /* IDP_UI_DATA_TYPE_INT */
+#pragma pack(push, 1)
 typedef struct IDPropertyUIDataInt {
   IDPropertyUIData base;
   int *default_array; /* Only for array properties. */
@@ -67,8 +70,10 @@ typedef struct IDPropertyUIDataInt {
   int step;
   int default_value;
 } IDPropertyUIDataInt;
+#pragma pack(pop)
 
 /* IDP_UI_DATA_TYPE_FLOAT */
+#pragma pack(push, 1)
 typedef struct IDPropertyUIDataFloat {
   IDPropertyUIData base;
   double *default_array; /* Only for array properties. */
@@ -84,6 +89,7 @@ typedef struct IDPropertyUIDataFloat {
   double soft_max;
   double default_value;
 } IDPropertyUIDataFloat;
+#pragma pack(pop)
 
 /* IDP_UI_DATA_TYPE_STRING */
 typedef struct IDPropertyUIDataString {
