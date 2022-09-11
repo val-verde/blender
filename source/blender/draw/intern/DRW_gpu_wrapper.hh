@@ -98,7 +98,8 @@ class DataBuffer {
    * Get the value at the given index. This invokes undefined behavior when the
    * index is out of bounds.
    */
-  const T &operator[](int64_t index) const
+  template <typename I>
+  const T &operator[](I index) const
   {
     BLI_STATIC_ASSERT(!device_only, "");
     BLI_assert(index >= 0);
@@ -106,7 +107,8 @@ class DataBuffer {
     return data_[index];
   }
 
-  T &operator[](int64_t index)
+  template <typename I>
+  T &operator[](I index)
   {
     BLI_STATIC_ASSERT(!device_only, "");
     BLI_assert(index >= 0);

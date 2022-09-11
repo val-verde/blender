@@ -94,14 +94,16 @@ struct float4x4 {
     return &values[0][0];
   }
 
-  float *operator[](const int64_t index)
+  template <typename I>
+  float *operator[](I index)
   {
     BLI_assert(index >= 0);
     BLI_assert(index < 4);
     return &values[index][0];
   }
 
-  const float *operator[](const int64_t index) const
+  template <typename I>
+  const float *operator[](I index) const
   {
     BLI_assert(index >= 0);
     BLI_assert(index < 4);
